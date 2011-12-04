@@ -7,12 +7,22 @@ module Mail
   WAVE_DASH = "〜" # U+301C
   FULLWIDTH_TILDE = "～" # U+FF5E
   NKF_OPTIONS = "--oc=CP50220 -xj"
+  if RUBY_VERSION >= '1.9'
+    ENCODE = {'iso-2022-jp' => Encoding::CP50221}
+    def self.encoding_to_charset(str, charset)
+      str.encode(ENCODE[charset.to_s.downcase] || charset).force_encoding(charset)
+    end
+  end
 
   class Message
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
-        @body_raw.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        @body_raw = NKF.nkf(NKF_OPTIONS, @body_raw)
+        @body_raw = @body_raw.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
+        if RUBY_VERSION >= '1.9'
+          @body_raw = Mail.encoding_to_charset(@body_raw, @charset)
+        else
+          @body_raw = NKF.nkf(NKF_OPTIONS, @body_raw)
+        end
       end
       process_body_raw_without_iso_2022_jp_encoding
     end
@@ -41,13 +51,14 @@ module Mail
 
     def initialize_with_iso_2022_jp_encoding(value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp'
-        value.gsub!(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
-        value = NKF.nkf(NKF_OPTIONS, value)
+        value = value.to_s.gsub(/#{WAVE_DASH}/, FULLWIDTH_TILDE)
         if RUBY_VERSION >= '1.9'
+          value = Mail.encoding_to_charset(value, charset)
           value.force_encoding('ascii-8bit')
           value = b_value_encode(value)
           value.force_encoding('ascii-8bit')
         else
+          value = NKF.nkf(NKF_OPTIONS, value)
           value = b_value_encode(value)
         end
       end
