@@ -12,7 +12,7 @@ class ActionMailerTest < ActiveSupport::TestCase
     assert_equal "From: =?ISO-2022-JP?B?GyRCOzNFREJATzobKEI=?= <taro@example.com>\r\n", mail[:from].encoded
     assert_equal "To: =?ISO-2022-JP?B?GyRCOjRGIzJWO1IbKEI=?= <hanako@example.com>\r\n", mail[:to].encoded
     assert_equal "Cc: =?ISO-2022-JP?B?GyRCO3ZMMzZJGyhC?= <info@example.com>\r\n", mail[:cc].encoded
-    assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsN29MPhsoQg==?=\r\n", mail[:subject].encoded
+    assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsGyhCIBskQjdvTD4bKEI=\?=\r\n", mail[:subject].encoded
     assert_equal NKF::JIS, NKF.guess(mail.body.encoded)
   end
 
@@ -32,7 +32,7 @@ class ActionMailerTest < ActiveSupport::TestCase
     assert_equal "From: =?ISO-2022-JP?B?GyRCOzNFREJATzobKEI=?= <taro@example.com>\r\n", mail[:from].encoded
     assert_equal "To: =?ISO-2022-JP?B?GyRCOjRGIzJWO1IbKEI=?= <hanako@example.com>, \r\n =?ISO-2022-JP?B?GyRCOjRGIzklO1IbKEI=?= <yoshiko@example.com>\r\n", mail[:to].encoded
     assert_equal "Cc: =?ISO-2022-JP?B?GyRCO3ZMMzZJGyhC?= <info@example.com>\r\n", mail[:cc].encoded
-    assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsN29MPhsoQg==?=\r\n", mail[:subject].encoded
+    assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsGyhCIBskQjdvTD4bKEI=\?=\r\n", mail[:subject].encoded
     assert_equal NKF::JIS, NKF.guess(mail.body.encoded)
   end
 
@@ -50,13 +50,13 @@ class Iso2022jpMailer < ActionMailer::Base
     :cc => "事務局 <info@example.com>"
 
   def notice
-    mail(:to => '佐藤花子 <hanako@example.com>', :subject => '日本語件名') do |format|
+    mail(:to => '佐藤花子 <hanako@example.com>', :subject => '日本語 件名') do |format|
       format.text { render :inline => '日本語本文' }
     end
   end
 
   def notice2
-    mail(:to => [ '佐藤花子 <hanako@example.com>', '佐藤好子 <yoshiko@example.com>' ], :subject => '日本語件名') do |format|
+    mail(:to => [ '佐藤花子 <hanako@example.com>', '佐藤好子 <yoshiko@example.com>' ], :subject => '日本語 件名') do |format|
       format.text { render :inline => '日本語本文' }
     end
   end

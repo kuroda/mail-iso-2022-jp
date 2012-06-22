@@ -16,7 +16,7 @@ class MailTest < ActiveSupport::TestCase
       resent_sender 'X事務局 <info@example.com>'
       resent_to '佐藤花子 <hanako@example.com>'
       resent_cc 'X事務局 <info@example.com>'
-      subject '日本語件名'
+      subject '日本語 件名'
       body '日本語本文'
     end
     assert_equal 'ISO-2022-JP', mail.charset
@@ -30,7 +30,7 @@ class MailTest < ActiveSupport::TestCase
     assert_equal "Resent-Sender: =?ISO-2022-JP?B?WBskQjt2TDM2SRsoQg==?= <info@example.com>\r\n", mail[:resent_sender].encoded
     assert_equal "Resent-To: =?ISO-2022-JP?B?GyRCOjRGIzJWO1IbKEI=?= <hanako@example.com>\r\n", mail[:resent_to].encoded
     assert_equal "Resent-Cc: =?ISO-2022-JP?B?WBskQjt2TDM2SRsoQg==?= <info@example.com>\r\n", mail[:resent_cc].encoded
-    assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsN29MPhsoQg==?=\r\n", mail[:subject].encoded
+    assert_equal "Subject: =?ISO-2022-JP?B?GyRCRnxLXDhsGyhCIBskQjdvTD4bKEI=\?=\r\n", mail[:subject].encoded
     assert_equal NKF::JIS, NKF.guess(mail.body.encoded)
   end
 
@@ -70,7 +70,7 @@ class MailTest < ActiveSupport::TestCase
         Mail.new(:charset => 'ISO-2022-JP') do
           from [ '山田太郎 <taro@example.com>' ]
           to [ '佐藤花子 <hanako@example.com>' ]
-          subject NKF.nkf("-Wj", '日本語件名')
+          subject NKF.nkf("-Wj", '日本語 件名')
           body '日本語本文'
         end
       end

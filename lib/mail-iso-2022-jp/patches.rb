@@ -129,7 +129,7 @@ module Mail
     def b_value_encode(string)
       string.split(' ').map do |s|
         if s =~ /\e/
-          "=?ISO-2022-JP?B?#{Base64.encode64(s).gsub("\n", "")}?="
+          encode64(s)
         else
           s
         end
@@ -151,10 +151,17 @@ module Mail
       end
       super(value)
     end
+
+    def encode64(string)
+      "=?ISO-2022-JP?B?#{Base64.encode64(string).gsub("\n", "")}?="
+    end
   end
 
   class SubjectField < UnstructuredField
     include FieldWithIso2022JpEncoding
+    def b_value_encode(string)
+      encode64(string)
+    end
   end
 
   class FromField < StructuredField
