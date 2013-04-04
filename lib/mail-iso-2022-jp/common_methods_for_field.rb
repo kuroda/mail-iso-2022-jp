@@ -28,7 +28,11 @@ module Mail
     end
 
     def encode64(string)
-      "=?ISO-2022-JP?B?#{Base64.encode64(string).gsub("\n", "")}?="
+      if string.length > 0
+        "=?ISO-2022-JP?B?#{Base64.encode64(string).gsub("\n", "")}?="
+      else
+        string
+      end
     end
 
     def preprocess(value)
