@@ -1,7 +1,11 @@
 source "https://rubygems.org"
 
 if mail_gem_version = ENV['MAIL_GEM_VERSION']
-  gem "mail", "= #{mail_gem_version}"
+  if mail_gem_version == "HEAD"
+    gem "mail", :git => "git@github.com:mikel/mail.git"
+  else
+    gem "mail", "= #{mail_gem_version}"
+  end
 else
   gem "mail", "<= 2.5.2"
 end
