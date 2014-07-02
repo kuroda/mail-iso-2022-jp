@@ -9,13 +9,11 @@ Gem::Specification.new do |s|
   s.description = "A set of patches for mikel's mail gem. With this, you can easily send and receive mails with ISO-2022-JP enconding (so-called 'JIS-CODE')."
   s.summary     = "A set of patches that provides 'mail' gem with iso-2022-jp conversion capability."
 
-  s.platform = Gem::Platform::RUBY
   s.required_ruby_version = ">= 1.8.7"
 
   s.add_dependency "mail", ">= 2.2.6", "<= 2.5.4"
   s.add_development_dependency "actionmailer", ">= 3.0.0"
   s.add_development_dependency "rdoc", ">= 3.12"
 
-  s.require_path = "lib"
   s.files = %w(README.md Gemfile Rakefile) + Dir.glob("lib/**/*")
 end
