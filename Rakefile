@@ -1,3 +1,6 @@
+require 'bundler/setup'
+require 'bundler/gem_tasks'
+require 'wwtd/tasks'
 require 'rake'
 require 'rake/testtask'
 require 'rdoc/task'
@@ -7,14 +10,6 @@ task :default => :test
 
 desc 'Test mail-iso-2022-jp library.'
 Rake::TestTask.new(:test) do |t|
-  t.libs << 'lib'
-  t.libs << 'test'
-  t.pattern = 'test/mail_test.rb'
-  t.verbose = true
-end
-
-desc 'Test mail-iso-2022-jp library using action_mailer.'
-Rake::TestTask.new(:test_all) do |t|
   t.libs << 'lib'
   t.libs << 'test'
   t.pattern = 'test/mail_test.rb'

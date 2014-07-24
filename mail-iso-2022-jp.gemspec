@@ -12,9 +12,12 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 1.8.7"
 
-  s.add_dependency "mail", ">= 2.2.6", "<= 2.6.1"
+  s.add_runtime_dependency "mail", ">= 2.2.6", "<= 2.5.4" unless ENV["MAIL_HEAD"]
   s.add_development_dependency "actionmailer", ">= 3.0.0"
   s.add_development_dependency "rdoc", ">= 3.12"
+  s.add_development_dependency "rake"
+  s.add_development_dependency "wwtd"
+  s.add_development_dependency "minitest"#, "~> 4.7.2" unless ENV["MAIL_HEAD"]
 
   s.files = %w(README.md Gemfile Rakefile) + Dir.glob("lib/**/*")
 end

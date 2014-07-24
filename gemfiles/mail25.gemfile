@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+gemspec :path => "../"
+
+gem "mail", "~> 2.5.4"
+gem "actionmailer", "~> 4.0.6" # TODO use newest

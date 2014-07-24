@@ -1,0 +1,28 @@
+bundler_args: ""
+
+rvm:
+ - 1.8.7
+ - 1.9.3
+ - 2.0.0
+ - 2.1.2
+
+gemfile:
+ - gemfiles/mail22.gemfile
+ - gemfiles/mail24.gemfile
+ - gemfiles/mail25.gemfile
+# - gemfiles/mail26.gemfile # TODO not supported by actionmailer
+# - gemfiles/head.gemfile # TODO not supported by actionmailer
+ - gemfiles/rails32.gemfile
+ - gemfiles/rails40.gemfile
+ - gemfiles/rails41.gemfile
+
+matrix:
+  exclude:
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails40.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/rails41.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/mail25.gemfile
+    - rvm: 1.8.7
+      gemfile: gemfiles/mail26.gemfile

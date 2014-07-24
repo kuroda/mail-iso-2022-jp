@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+gemspec :path => "../"
+
+gem "mail", "~> 2.2.6"
+gem "minitest", "~> 4.7.2"

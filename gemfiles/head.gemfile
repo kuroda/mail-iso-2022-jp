@@ -1,0 +1,7 @@
+source "https://rubygems.org"
+
+ENV["MAIL_HEAD"] = "true"
+gemspec :path => "../"
+
+gem "mail", :git => "git@github.com:mikel/mail.git"
+gem "actionmailer", :git => "git@github.com:rails/rails.git"
