@@ -364,4 +364,10 @@ class MailTest < ActiveSupport::TestCase
 
     assert_equal NKF::UTF8, NKF.guess(mail.text_part.body.encoded)
   end
+
+  test "should handle lowercase charset in unstructured fields" do
+    mail = Mail.new(:charset => 'iso-2022-jp')
+    mail["User-Agent"] = "test mailer"
+    assert_equal "User-Agent: test mailer\r\n", mail["User-Agent"].encoded
+  end
 end

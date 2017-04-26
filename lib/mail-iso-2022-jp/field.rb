@@ -5,7 +5,7 @@ require 'mail'
 module Mail
   class Field
     def initialize_with_iso_2022_jp_encoding(name, value = nil, charset = 'utf-8')
-      if charset == 'ISO-2022-JP' && value.kind_of?(String)
+      if charset.to_s.downcase == 'iso-2022-jp' && value.kind_of?(String)
         unless [ 'UTF-8', 'US-ASCII' ].include?(value.encoding.to_s)
           raise ::Mail::InvalidEncodingError.new(
             "The '#{name}' field is not encoded in UTF-8 nor in US-ASCII but in #{value.encoding}")
