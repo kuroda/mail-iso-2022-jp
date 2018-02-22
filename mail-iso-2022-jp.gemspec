@@ -12,7 +12,7 @@ Gem::Specification.new do |s|
 
   s.required_ruby_version = ">= 1.9.3"
 
-  s.add_dependency "mail", ">= 2.2.6", "<= 2.6.4"
+  s.add_dependency "mail", ">= 2.2.6", "<= 2.7.0"
   s.add_development_dependency "actionmailer", ">= 3.0.0", "< 6.0"
   s.add_development_dependency "rdoc", ">= 3.12", "< 5.0"
 
