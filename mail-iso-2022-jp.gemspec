@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.summary     = "A set of patches that provides 'mail' gem with iso-2022-jp conversion capability."
   s.license     = "MIT"
 
-  s.required_ruby_version = ">= 1.9.3"
+  s.required_ruby_version = ">= 2.2"
 
   s.add_dependency "mail", ">= 2.2.6", "<= 2.7.1"
   s.add_development_dependency "actionmailer", ">= 3.0.0", "< 7.0"

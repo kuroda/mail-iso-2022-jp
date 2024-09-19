@@ -1,6 +1,5 @@
 # coding: utf-8
 
-# Patches for Mail on Ruby 1.9.3 or above
 module Mail
   ENCODE = { 'iso-2022-jp' => Encoding::CP50221 }
 
