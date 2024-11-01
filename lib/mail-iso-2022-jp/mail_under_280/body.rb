@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Mail
-  Body.class_eval do
+  class Body
     def initialize_with_iso_2022_jp_encoding(string = '')
       if string.respond_to?(:encoding) && string.encoding.to_s == 'ISO-2022-JP'
         string.force_encoding('US-ASCII')

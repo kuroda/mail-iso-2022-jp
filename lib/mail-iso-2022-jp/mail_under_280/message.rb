@@ -1,10 +1,18 @@
-require 'mail'
-require 'nkf'
+# coding: utf-8
 
-# Patches for Mail::Message on Ruby 1.8.7
+require 'mail'
+
+# Patches for Mail::Message on Ruby 1.9.x or above
 module Mail
   class Message
     def body_with_iso_2022_jp_encoding=(value)
+      if @charset.to_s.downcase == 'iso-2022-jp'
+        if value.respond_to?(:encoding) && value.encoding.to_s != 'UTF-8'
+          raise ::Mail::InvalidEncodingError.new(
+            "The mail body is not encoded in UTF-8 but in #{value.encoding}")
+        end
+        value = Mail::Preprocessor.process(value)
+      end
       self.body_without_iso_2022_jp_encoding = value
     end
     alias_method :body_without_iso_2022_jp_encoding=, :body=
@@ -12,8 +20,7 @@ module Mail
 
     def process_body_raw_with_iso_2022_jp_encoding
       if @charset.to_s.downcase == 'iso-2022-jp'
-        @body_raw = Mail::Preprocessor.process(@body_raw)
-        @body_raw = NKF.nkf(NKF_OPTIONS, @body_raw)
+        @body_raw = Mail.encoding_to_charset(@body_raw, @charset)
       end
       process_body_raw_without_iso_2022_jp_encoding
     end

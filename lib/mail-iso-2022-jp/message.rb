@@ -4,7 +4,7 @@ require 'mail'
 
 # Patches for Mail::Message on Ruby 1.9.x or above
 module Mail
-  class Message
+  Message.class_eval do
     def body_with_iso_2022_jp_encoding=(value)
       if @charset.to_s.downcase == 'iso-2022-jp'
         if value.respond_to?(:encoding) && value.encoding.to_s != 'UTF-8'

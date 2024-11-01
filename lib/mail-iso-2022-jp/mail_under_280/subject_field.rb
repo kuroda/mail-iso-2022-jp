@@ -3,7 +3,7 @@
 require 'mail'
 
 module Mail
-  SubjectField.class_eval do
+  class SubjectField < UnstructuredField
     include FieldWithIso2022JpEncoding
     def b_value_encode(string)
       encode64(string)
