@@ -3,7 +3,7 @@
 require 'mail'
 
 module Mail
-  Field.class_eval do
+  class Field
     def initialize_with_iso_2022_jp_encoding(name, value = nil, charset = 'utf-8')
       if charset.to_s.downcase == 'iso-2022-jp' && value.kind_of?(String)
         unless [ 'UTF-8', 'US-ASCII' ].include?(value.encoding.to_s)

@@ -1,7 +1,7 @@
 # coding: utf-8
 
 module Mail
-  Header.class_eval do
+  class Header
     def encoded
       buffer = ''
       fields.each do |field|

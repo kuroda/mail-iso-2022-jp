@@ -1,6 +1,6 @@
 # coding: utf-8
 
-Mail.module_eval do
+module Mail
   WAVE_DASH = [0x301c].pack("U")
   FULLWIDTH_TILDE = [0xff5e].pack("U")
   MINUS_SIGN = [0x2212].pack("U")
